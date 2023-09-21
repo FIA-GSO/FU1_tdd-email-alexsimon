@@ -19,3 +19,11 @@ def is_valid_email(email: str) -> bool:
     except EmailNotValidError as e:
         return False
 
+
+def is_valid_password(password: str) -> bool:
+    if type(password) is not str:
+        raise TypeError
+    if len(password) < 8:
+        return False
+
+    return True
