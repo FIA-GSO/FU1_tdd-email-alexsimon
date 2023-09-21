@@ -9,11 +9,13 @@ from input_validation import is_valid_email
 ,   ("te-st@email.com")
 ,   ("te_st@email.com")
 ,   ("test1@email.com")
+,   ("email@[123.123.123.123]")
+,   ("email@123.123.123.123")
+,   ("firstname+lastname@example.com")
+,   ("1234567890@example.com")
+,   ("_______@example.com")
 ])
 def test_is_valid_email__gueltige_Adressen(email):
-    # arrange
-    email_adress_to_be_tested = email
-    
     # act
     response = is_valid_email(email)
     
@@ -25,11 +27,13 @@ def test_is_valid_email__gueltige_Adressen(email):
     ("testemail.com")   # Fehlendes @-Zeichen
 ,   ("test@email")      # Fehlende Top-Level-Domain
 ,   ("test@em@ail.com") # Mehrfaches @-Zeichen
+,   ("Abc..123@example.com")
+,   ("あいうえお@example.com")
+,   ("email@111.222.333.44444")
+,   ("Joe Smith <email@example.com>")
+,   ("email..email@example.com")
 ])
 def test_is_valid_email__ungueltige_Adressen(email):
-    # arrange
-    email_adress_to_be_tested = email
-    
     # act
     response = is_valid_email(email)
     

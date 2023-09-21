@@ -1,6 +1,8 @@
-import re   #regular Expressions
+import email_validator
+from email_validator import EmailNotValidError
 
-def is_valid_email(email:str) -> bool:
+
+def is_valid_email(email: str) -> bool:
     """
     Uses regular expression to validate email.
 
@@ -8,5 +10,12 @@ def is_valid_email(email:str) -> bool:
     True -- email is valid 
     False -- email is not valid
     """
-    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    return re.match(pattern, email) is not None
+    email_validator.ALLOW_SMTPUTF8 = True
+
+    try:
+        email_validator.validate_email(email)
+        return True
+
+    except EmailNotValidError as e:
+        return False
+
