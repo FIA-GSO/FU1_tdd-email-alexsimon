@@ -42,16 +42,17 @@ def test_is_valid_email__ungueltige_Adressen(email):
     assert response is False
 
 @pytest.mark.parametrize("password", [
-    ("word1234")  # länge 8
-,   ("word12343456")  # länger als 8
+    ("w@rd/1234")  # länge 8 mit sonderzeichen
+,   ("word/123434%")  # länger als 8 mit sonderzeichen
+,   ("word12345678SimonTestWord") # länger als 24 ohne Sonderzeichen
 ])
 def test_is_valid_password_valid_values(password):
     response = is_valid_password(password)
     assert response is True
 
 @pytest.mark.parametrize("password", [
-    ("word123")  # länge 7
-,   ("wor")  # länge 3
+    ("word/12")  # zu kurz trotz sonderzeichen
+,   ("word1234567SimonTestWord") # zu kurz weil keine Sonderzeichen
 ])
 def test_is_valid_password_invalid_values(password):
     response = is_valid_password(password)

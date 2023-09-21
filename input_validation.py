@@ -1,4 +1,5 @@
 import email_validator
+from re import findall
 from email_validator import EmailNotValidError
 
 
@@ -23,7 +24,14 @@ def is_valid_email(email: str) -> bool:
 def is_valid_password(password: str) -> bool:
     if type(password) is not str:
         raise TypeError
+
+    pattern_non_word_chars = r'\W'
+    has_extra_chars = len(findall(pattern_non_word_chars, password)) > 0
+
     if len(password) < 8:
+        return False
+
+    if len(password) < 25 and not has_extra_chars:
         return False
 
     return True
