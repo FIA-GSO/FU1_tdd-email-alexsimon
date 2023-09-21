@@ -10,10 +10,10 @@ def is_valid_email(email: str) -> bool:
     True -- email is valid 
     False -- email is not valid
     """
-    email_validator.ALLOW_SMTPUTF8 = True
+    email_validator.CHECK_DELIVERABILITY = False
 
     try:
-        email_validator.validate_email(email)
+        email_validator.validate_email(email, )
         return True
 
     except EmailNotValidError as e:
